@@ -3,18 +3,15 @@ import 'dotenv/config'
 import { connectToMongoDB } from "./connections.js";
 
 console.log(process.env.PORT);
-connectToMongoDB().then(()=>{
-    console.log(`connected to ${process.env.DBURL}`);
-})
-.catch((err)=>{
-    console.log(`Error is ${err}`);
+const x=connectToMongoDB().then((res)=>{
+    let y = async ()=> {
+        let y  =await res.connection.listCollections();
+        console.log(y);
 
-})
+    
+}
+);
 
-
-
-
-
-express().listen(process.env.DBURL,()=>{
+express().listen(process.env.PORT,()=>{
     console.log(`server started at ${process.env.PORT}`);
 })
