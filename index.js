@@ -10,6 +10,9 @@ const x=connectToMongoDB().then((res)=>{
 
     
 }
+
+y()
+}
 );
 
 express().listen(process.env.PORT,()=>{
