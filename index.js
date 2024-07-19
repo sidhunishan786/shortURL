@@ -1,20 +1,25 @@
-import express from "express";
+import express, { json } from "express";
 import 'dotenv/config'
 import { connectToMongoDB } from "./connections.js";
+import { Router } from "./routes/url.js";
 
-console.log(process.env.PORT);
+
+let app = express();
+app.use(express.json()); // for parsing application/json
+app.use(express.urlencoded({ extended: true }));
+
 const x=connectToMongoDB().then((res)=>{
-    let y = async ()=> {
-        let y  =await res.connection.listCollections();
-        console.log(y);
-
-    
+    console.log("connection successful");
 }
+)
+.catch((err)=>{
+    console.log("connection failed ERR - ",err);
 
-y()
-}
-);
+})
 
-express().listen(process.env.PORT,()=>{
+
+app.use('/url',Router);
+
+app.listen(process.env.PORT,()=>{
     console.log(`server started at ${process.env.PORT}`);
 })
